@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hotel Pet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="sem-menu">
+  <aside class="lateral">
+    <a href="#/reservas" class="logo">Hotel Pet</a>
+    <nav aria-label="Menu principal">
+      <a href="#/pets" data-menu="pets">🐾 Pets</a>
+      <a href="#/usuarios" data-menu="usuarios">👤 Usuários</a>
+      <a href="#/configuracoes" data-menu="configuracoes">⚙ Configurações</a>
+      <a href="#/reservas" data-menu="reservas">📅 Reservas</a>
+    </nav>
+  </aside>
+
+  <div class="conteudo">
+    <header class="cabecalho">
+      <a href="#/perfil" class="usuario"><span class="avatar" aria-hidden="true"></span> Géssica Israele</a>
+    </header>
+    <p id="breadcrumb" class="breadcrumb"></p>
+    <main id="app"></main>
+  </div>
+
+  <!-- ============ TELAS (templates) ============ -->
+
+  <template id="tela-login">
+    <div class="auth">
+      <div class="auth-imagem" role="img" aria-label="Imagem ilustrativa"></div>
+      <section class="auth-form">
+        <h1 class="logo-grande">Hotel Pet</h1>
+        <label>Login <input type="text"></label>
+        <label>Senha <input type="password"></label>
+        <div class="linha"><label class="check"><input type="checkbox"> Mostrar senha</label><a href="#/login">Esqueci a senha</a></div>
+        <button class="btn" data-ir="#/reservas">Entrar</button>
+        <a href="#/criar-conta" class="centro">Criar uma conta</a>
+      </section>
+    </div>
+  </template>
+
+  <template id="tela-criar-conta">
+    <div class="auth">
+      <div class="auth-imagem" role="img" aria-label="Imagem ilustrativa"></div>
+      <section class="auth-form">
+        <h1 class="logo-grande">Hotel Pet</h1>
+        <label>Login <input type="text"></label>
+        <label>Senha <input type="password"></label>
+        <button class="btn" data-ir="#/login">Criar conta</button>
+        <a href="#/login" class="centro">Já tenho uma conta</a>
+      </section>
+    </div>
+  </template>
+
+  <!-- RESERVAS -->
+  <template id="tela-reservas">
+    <section class="painel">
+      <div class="titulo"><h1>Reservas</h1><a class="btn" href="#/reservas/nova">+ Nova reserva</a></div>
+      <form class="filtro">
+        <label>Id <input type="text"></label>
+        <label>Período <span class="duplo"><input type="date"><input type="date"></span></label>
+        <label>Proprietário <input type="text"></label>
+        <label>Total (R$) <span class="duplo"><input type="number" placeholder="mín"><input type="number" placeholder="máx"></span></label>
+        <label>Status <select><option value="">Todos</option><option>Reservada</option><option>Em andamento</option><option>Finalizada</option></select></label>
+        <label>Pet <input type="text"></label>
+        <div class="acoes"><button type="button" class="btn">Pesquisar</button><button type="reset" class="btn sec">Limpar</button></div>
+      </form>
+      <table>
+        <thead><tr><th></th><th>Id</th><th>Pet</th><th>Chegada</th><th>Partida</th><th>Status</th><th>Total</th><th>Ações</th></tr></thead>
+        <tbody>
+          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td>1234099871</td><td>Max</td><td>02/05/2021</td><td>07/05/2021</td><td><span class="tag verde">Reservada</span></td><td>R$ 40,00</td><td><a href="#/reservas/editar">Editar</a> <a href="#/reservas/ver">Visualizar</a></td></tr>
+          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td>1234099872</td><td>Ginger</td><td>02/05/2021</td><td>07/05/2021</td><td><span class="tag azul">Em andamento</span></td><td>R$ 40,00</td><td><a href="#/reservas/editar">Editar</a> <a href="#/reservas/ver">Visualizar</a></td></tr>
+          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td>1234099873</td><td>Max</td><td>02/05/2021</td><td>07/05/2021</td><td><span class="tag cinza">Finalizada</span></td><td>R$ 40,00</td><td><a href="#/reservas/editar-finalizada">Editar</a> <a href="#/reservas/ver">Visualizar</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+  </template>
+
+  <template id="tela-reservas-nova">
+    <section class="painel">
+      <h1>Fazer reserva</h1>
+      <form class="form">
+        <label>Pet * <input type="text"></label>
+        <label>Período * <span class="duplo"><input type="date"><input type="date"></span></label>
+        <label>Notas <textarea rows="4"></textarea></label>
+        <p class="total">Total das diárias: <strong>R$ 40,00</strong></p>
+        <div class="acoes"><button type="button" class="btn" data-ir="#/reservas">Salvar</button><button type="reset" class="btn sec">Limpar</button></div>
+      </form>
+    </section>
+  </template>
+
+  <template id="tela-reservas-ver">
+    <section class="painel">
+      <h1>Ver reserva</h1>
+      <dl class="detalhes">
+        <dt>Id:</dt><dd>1234099871</dd>
+        <dt>Proprietário:</dt><dd>Gessica Israele</dd>
+        <dt>Pet:</dt><dd><a href="#/pets/ver">Max</a></dd>
+        <dt>Chegada:</dt><dd>02/05/2021</dd>
+        <dt>Partida:</dt><dd>07/05/2021</dd>
+        <dt>Notas:</dt><dd>Lorem ipsum...</dd>
+        <dt>Anotações dos funcionários:</dt><dd>Lorem ipsum...</dd>
+        <dt>Imagens:</dt><dd><span class="img-ph"></span><span class="img-ph"></span><span class="img-ph"></span></dd>
+        <dt>Status:</dt><dd><span class="tag verde">Finalizada</span></dd>
+        <dt>Total das diárias:</dt><dd>R$ 40,00</dd>
+        <dt>Recibo:</dt><dd><a href="#/reservas/ver">recibo.pdf</a></dd>
+        <dt>Criado em:</dt><dd>02/05/2021</dd>
+      </dl>
+      <a class="btn sec" href="#/reservas">← Voltar</a>
+    </section>
+  </template>
+
+  <template id="tela-reservas-editar">
+    <section class="painel">
+      <h1>Editar reserva</h1>
+      <form class="form">
+        <label>Proprietário * <input type="text" value="Géssica Israele"></label>
+        <label>Pet * <input type="text" value="Max"></label>
+        <label>Período * <span class="duplo"><input type="date"><input type="date"></span></label>
+        <label>Notas <textarea rows="3"></textarea></label>
+        <label>Status * <select><option>Em andamento</option><option>Reservada</option><option>Finalizada</option></select></label>
+        <label>Anotações do funcionário <textarea rows="3"></textarea></label>
+        <label>Imagens <input type="file" accept="image/*" multiple></label>
+        <p class="total">Total das diárias: <strong>R$ 40,00</strong></p>
+        <div class="acoes"><button type="button" class="btn" data-ir="#/reservas">Salvar</button><button type="reset" class="btn sec">Limpar</button></div>
+      </form>
+    </section>
+  </template>
+
+  <template id="tela-reservas-editar-finalizada">
+    <section class="painel">
+      <h1>Editar reserva</h1>
+      <form class="form">
+        <label>Proprietário * <input type="text" value="José da Silva"></label>
+        <label>Pet * <input type="text" value="Max"></label>
+        <label>Período * <span class="duplo"><input type="date"><input type="date"></span></label>
+        <label>Notas <textarea rows="3"></textarea></label>
+        <label>Status * <select><option>Finalizada</option><option>Em andamento</option><option>Reservada</option></select></label>
+        <p class="total">Total das diárias: <strong>R$ 40,00</strong></p>
+        <div><label class="btn roxo">Adicionar recibo/nota <input type="file" hidden></label> <a href="#/reservas/ver">recibo.pdf</a></div>
+        <div class="acoes"><button type="button" class="btn" data-ir="#/reservas">Salvar</button><button type="reset" class="btn sec">Limpar</button></div>
+      </form>
+    </section>
+  </template>
+
+  <!-- PETS -->
+  <template id="tela-pets">
+    <section class="painel">
+      <div class="titulo"><h1>Pets</h1><a class="btn" href="#/pets/novo">+ Novo Pet</a></div>
+      <form class="filtro">
+        <label>Id <input type="text"></label>
+        <label>Raça <input type="text"></label>
+        <label>Nome <input type="text"></label>
+        <label>Tamanho <select><option value="">Todos</option><option>Pequeno</option><option>Médio</option><option>Grande</option></select></label>
+        <label>Tipo <input type="text"></label>
+        <div class="acoes"><button type="button" class="btn">Pesquisar</button><button type="reset" class="btn sec">Limpar</button></div>
+      </form>
+      <table>
+        <thead><tr><th></th><th>Id</th><th>Nome</th><th>Tipo</th><th>Raça</th><th>Tamanho</th><th>Ações</th></tr></thead>
+        <tbody>
+          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td>1234509876</td><td>Max</td><td>Cachorro</td><td>Pastor Alemão</td><td>Grande</td><td><a href="#/pets/editar">Editar</a> <a href="#/pets/ver">Visualizar</a></td></tr>
+          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td>1234509877</td><td>Ginger</td><td>Gato</td><td>Siamês</td><td>Pequeno</td><td><a href="#/pets/editar">Editar</a> <a href="#/pets/ver">Visualizar</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+  </template>
+
+  <template id="tela-pets-novo">
+    <section class="painel">
+      <h1>Novo Pet</h1>
+      <form class="form com-imagem">
+        <label>Proprietário * <input type="text"></label>
+        <label>Nome * <input type="text"></label>
+        <label>Tipo * <select><option>Cachorro</option><option>Gato</option><option>Outro</option></select></label>
+        <label>Raça * <input type="text"></label>
+        <label>Tamanho * <select><option>Pequeno</option><option>Médio</option><option>Grande</option></select></label>
+        <label class="imagem">Imagem <span class="img-ph grande"></span><input type="file" accept="image/*"></label>
+        <div class="acoes"><button type="button" class="btn" data-ir="#/pets">Salvar</button><button type="reset" class="btn sec">Limpar</button></div>
+      </form>
+    </section>
+  </template>
+
+  <template id="tela-pets-ver">
+    <section class="painel">
+      <div class="titulo"><h1>Ver pet</h1>
+        <div class="acoes"><a class="btn sec" href="#/pets/editar">Editar</a><button class="btn perigo" data-ir="#/pets">Deletar</button></div></div>
+      <dl class="detalhes">
+        <dt>Proprietário:</dt><dd>José da Silva</dd>
+        <dt>Id:</dt><dd>1234509876</dd>
+        <dt>Nome:</dt><dd>Max</dd>
+        <dt>Tipo:</dt><dd>Cachorro</dd>
+        <dt>Raça:</dt><dd>Pastor Alemão</dd>
+        <dt>Imagem:</dt><dd><span class="img-ph grande"></span></dd>
+        <dt>Reservas:</dt><dd><a href="#/reservas/ver">02/05/2021 - 07/05/2021 (completa)</a><br><a href="#/reservas/ver">02/05/2021 - 07/05/2021 (em andamento)</a></dd>
+      </dl>
+      <a class="btn sec" href="#/pets">← Voltar</a>
+    </section>
+  </template>
+
+  <template id="tela-pets-editar">
+    <section class="painel">
+      <h1>Editar Pet</h1>
+      <form class="form com-imagem">
+        <label>Nome * <input type="text" value="Max"></label>
+        <label>Tipo * <select><option>Cachorro</option><option>Gato</option><option>Outro</option></select></label>
+        <label>Raça * <input type="text" value="Pastor Alemão"></label>
+        <label>Tamanho * <select><option>Grande</option><option>Médio</option><option>Pequeno</option></select></label>
+        <label class="imagem">Imagem <span class="img-ph grande"></span><input type="file" accept="image/*"></label>
+        <div class="acoes"><button type="button" class="btn" data-ir="#/pets">Salvar</button><button type="reset" class="btn sec">Limpar</button></div>
+      </form>
+    </section>
+  </template>
+
+  <!-- USUÁRIOS -->
+  <template id="tela-usuarios">
+    <section class="painel">
+      <div class="titulo"><h1>Usuários</h1>
+        <div class="acoes"><a class="btn" href="#/usuarios/novo">+ Novo usuário</a><button class="btn sec">Remover</button><button class="btn sec">Mudar status</button></div></div>
+      <form class="filtro">
+        <label>Id <input type="text"></label>
+        <label>Criado em <span class="duplo"><input type="date"><input type="date"></span></label>
+        <label>E-mail <input type="email"></label>
+        <label>Nome <input type="text"></label>
+        <label>Status <select><option value="">Todos</option><option>Ativo</option><option>Inativo</option></select></label>
+        <label>Função <select><option value="">Todas</option><option>Cliente</option><option>Funcionário</option><option>Gerente</option></select></label>
+        <div class="acoes"><button type="button" class="btn">Pesquisar</button><button type="reset" class="btn sec">Limpar</button></div>
+      </form>
+      <table>
+        <thead><tr><th></th><th>Foto</th><th>E-mail</th><th>Nome</th><th>Função</th><th>Status</th><th>Criado em</th><th>Ações</th></tr></thead>
+        <tbody>
+          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td><span class="avatar"></span></td><td>gessicaisraele@pet.com</td><td>Géssica Israele</td><td>Gerente</td><td><span class="tag verde">Ativo</span></td><td>19/02/2020</td><td><a href="#/usuarios/editar">Editar</a></td></tr>
+          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td><span class="avatar"></span></td><td>maria@pet.com</td><td>Maria da Silva</td><td>Funcionária</td><td><span class="tag vermelho">Inativo</span></td><td>19/02/2020</td><td><a href="#/usuarios/editar">Editar</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+  </template>
+
+  <template id="tela-usuarios-novo">
+    <section class="painel">
+      <h1>Cadastrar usuário</h1>
+      <form class="form">
+        <label>E-mail * <input type="email"></label>
+        <label>Nome * <input type="text"></label>
+        <label>Sobrenome * <input type="text"></label>
+        <label>Telefone * <input type="tel"></label>
+        <label>Função <select><option>Cliente</option><option>Funcionário</option><option>Gerente</option></select></label>
+        <div class="acoes"><button type="button" class="btn" data-ir="#/usuarios">Salvar</button><button type="reset" class="btn sec">Limpar</button></div>
+      </form>
+    </section>
+  </template>
+
+  <template id="tela-usuarios-editar">
+    <section class="painel">
+      <h1>Editar perfil</h1>
+      <form class="form">
+        <label>E-mail * <input type="email" value="gessicaisraele@pet.com"></label>
+        <label>Nome * <input type="text" value="Géssica"></label>
+        <label>Sobrenome * <input type="text" value="Israele"></label>
+        <label>Telefone * <input type="tel" value="+55 (73) 99876-6543"></label>
+        <label>Função <select><option>Funcionário</option><option>Cliente</option><option>Gerente</option></select></label>
+        <div class="acoes"><button type="button" class="btn" data-ir="#/usuarios">Salvar</button><button type="reset" class="btn sec">Limpar</button></div>
+      </form>
+    </section>
+  </template>
+
+  <!-- CONFIGURAÇÕES e PERFIL -->
+  <template id="tela-configuracoes">
+    <section class="painel">
+      <h1>Configurações</h1>
+      <form class="form">
+        <label>Valor da diária <input type="text" value="R$ 10,00"></label>
+        <label>Vagas disponíveis <input type="number" value="3"></label>
+        <div class="acoes"><button type="button" class="btn">Salvar</button><button type="reset" class="btn sec">Limpar</button></div>
+      </form>
+    </section>
+  </template>
+
+  <template id="tela-perfil">
+    <section class="painel">
+      <h1>Editar perfil</h1>
+      <form class="form">
+        <label>E-mail * <input type="email" value="gessicaisraele@pet.com"></label>
+        <label>Nome * <input type="text" value="Géssica"></label>
+        <label>Sobrenome * <input type="text" value="Israele"></label>
+        <label>Telefone * <input type="tel" value="+55 (73) 99876-6543"></label>
+        <div class="acoes"><button type="button" class="btn">Salvar</button><button type="reset" class="btn sec">Limpar</button><a class="btn sec" href="#/login">Sair</a></div>
+      </form>
+    </section>
+  </template>
+
+  <template id="tela-404">
+    <section class="painel"><h1>Página não encontrada</h1><a href="#/reservas">Ir para Reservas</a></section>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
