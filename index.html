@@ -59,20 +59,49 @@
     <section class="painel">
       <div class="titulo"><h1>Reservas</h1><a class="btn" href="#/reservas/nova">+ Nova reserva</a></div>
       <form class="filtro">
-        <label>Id <input type="text"></label>
+        <label>Id <input type="text" id="filtro-reserva-id"></label>
         <label>Período <span class="duplo"><input type="date"><input type="date"></span></label>
-        <label>Proprietário <input type="text"></label>
-        <label>Total (R$) <span class="duplo"><input type="number" placeholder="mín"><input type="number" placeholder="máx"></span></label>
-        <label>Status <select><option value="">Todos</option><option>Reservada</option><option>Em andamento</option><option>Finalizada</option></select></label>
-        <label>Pet <input type="text"></label>
-        <div class="acoes"><button type="button" class="btn">Pesquisar</button><button type="reset" class="btn sec">Limpar</button></div>
+        <label>Proprietário
+  <input type="text" id="filtro-reserva-proprietario">
+</label>
+        <label>Total (R$)
+  <span class="duplo">
+    <input type="number" id="filtro-reserva-total-min" placeholder="mín">
+    <input type="number" id="filtro-reserva-total-max" placeholder="máx">
+  </span>
+</label>
+        <label>Status
+  <select id="filtro-reserva-status">
+    <option value="">Todos</option>
+    <option>Reservada</option>
+    <option>Em andamento</option>
+    <option>Finalizada</option>
+  </select>
+</label>
+<label>Pet <input type="text" id="filtro-reserva-pet"></label>
+        <div class="acoes">
+  <button type="button" class="btn" id="pesquisar-reservas">Pesquisar</button>
+  <button type="reset" class="btn sec">Limpar</button>
+</div>
       </form>
       <table>
-        <thead><tr><th></th><th>Id</th><th>Pet</th><th>Chegada</th><th>Partida</th><th>Status</th><th>Total</th><th>Ações</th></tr></thead>
+        <thead>
+  <tr>
+    <th></th>
+    <th>Id</th>
+    <th>Pet</th>
+    <th>Proprietário</th>
+    <th>Chegada</th>
+    <th>Partida</th>
+    <th>Status</th>
+    <th>Total</th>
+    <th>Ações</th>
+  </tr>
+</thead>
         <tbody>
-          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td>1234099871</td><td>Max</td><td>02/05/2021</td><td>07/05/2021</td><td><span class="tag verde">Reservada</span></td><td>R$ 40,00</td><td><a href="#/reservas/editar">Editar</a> <a href="#/reservas/ver">Visualizar</a></td></tr>
-          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td>1234099872</td><td>Ginger</td><td>02/05/2021</td><td>07/05/2021</td><td><span class="tag azul">Em andamento</span></td><td>R$ 40,00</td><td><a href="#/reservas/editar">Editar</a> <a href="#/reservas/ver">Visualizar</a></td></tr>
-          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td>1234099873</td><td>Max</td><td>02/05/2021</td><td>07/05/2021</td><td><span class="tag cinza">Finalizada</span></td><td>R$ 40,00</td><td><a href="#/reservas/editar-finalizada">Editar</a> <a href="#/reservas/ver">Visualizar</a></td></tr>
+          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td>1</td><td>Max</td><td>Ana Souza</td><td>02/05/2021</td><td>07/05/2021</td><td><span class="tag verde">Reservada</span></td><td>R$ 40,00</td><td><a href="#/reservas/editar">Editar</a> <a href="#/reservas/ver">Visualizar</a></td></tr>
+          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td>2</td><td>Ginger</td><td>Bruno Lima</td><td>02/05/2021</td><td>07/05/2021</td><td><span class="tag azul">Em andamento</span></td><td>R$ 40,00</td><td><a href="#/reservas/editar">Editar</a> <a href="#/reservas/ver">Visualizar</a></td></tr>
+          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td>3</td><td>Max</td><td>Carla Santos</td><td>02/05/2021</td><td>07/05/2021</td><td><span class="tag cinza">Finalizada</span></td><td>R$ 40,00</td><td><a href="#/reservas/editar-finalizada">Editar</a> <a href="#/reservas/ver">Visualizar</a></td></tr>
         </tbody>
       </table>
     </section>
@@ -82,8 +111,14 @@
     <section class="painel">
       <h1>Fazer reserva</h1>
       <form class="form">
-        <label>Pet * <input type="text"></label>
-        <label>Período * <span class="duplo"><input type="date"><input type="date"></span></label>
+        <label>Pet
+  <input type="text" id="filtro-reserva-pet">
+</label>Período
+  <span class="duplo">
+    <input type="date" id="filtro-reserva-chegada">
+    <input type="date" id="filtro-reserva-partida">
+  </span>
+</label>
         <label>Notas <textarea rows="4"></textarea></label>
         <p class="total">Total das diárias: <strong>R$ 40,00</strong></p>
         <div class="acoes"><button type="button" class="btn" data-ir="#/reservas">Salvar</button><button type="reset" class="btn sec">Limpar</button></div>
@@ -171,8 +206,9 @@
     <section class="painel">
       <h1>Novo Pet</h1>
       <form class="form com-imagem">
-        <label>Proprietário * <input type="text"></label>
-        <label>Nome * <input type="text"></label>
+        <label>Proprietário
+  <input type="text" id="filtro-reserva-proprietario">
+</label> type="text"></label>
         <label>Tipo * <select><option>Cachorro</option><option>Gato</option><option>Outro</option></select></label>
         <label>Raça * <input type="text"></label>
         <label>Tamanho * <select><option>Pequeno</option><option>Médio</option><option>Grande</option></select></label>
@@ -218,7 +254,7 @@
     <section class="painel">
       <div class="titulo"><h1>Usuários</h1>
         <div class="acoes"><a class="btn" href="#/usuarios/novo">+ Novo usuário</a><button class="btn sec">Remover</button><button class="btn sec">Mudar status</button></div></div>
-      <form class="filtro">
+      <label>Id <input type="text"></label>
         <label>Id <input type="text"></label>
         <label>Criado em <span class="duplo"><input type="date"><input type="date"></span></label>
         <label>E-mail <input type="email"></label>

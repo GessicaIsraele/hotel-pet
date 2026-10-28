@@ -42,9 +42,48 @@ function marcarMenuAtivo(caminho) {
 
 // Elementos com data-ir="#/rota" navegam ao clicar (simula "Salvar" sem backend)
 document.addEventListener('click', (e) => {
-  const alvo = e.target.closest('[data-ir]');
-  if (alvo) location.hash = alvo.dataset.ir;
+  if (e.target.id === 'pesquisar-reservas') {
+    const linhas = app.querySelectorAll('tbody tr');
+    const idPesquisado = app.querySelector('#filtro-reserva-id').value.trim();
+    const statusPesquisado = app.querySelector('#filtro-reserva-status').value;
+    const petPesquisado = app
+  .querySelector('#filtro-reserva-pet')
+  .value.trim()
+  .toLowerCase();
+  const proprietarioPesquisado = app
+  .querySelector('#filtro-reserva-proprietario')
+  .value.trim()
+  .toLowerCase();
+
+    linhas.forEach((linha) => {
+      const id = linha.cells[1].textContent.trim();
+const status = linha.cells[5].textContent.trim();
+const pet = linha.cells[2].textContent.trim().toLowerCase();
+const proprietario = linha.cells[3].textContent.trim().toLowerCase();
+
+ linha.hidden =
+        (idPesquisado !== '' && id !== idPesquisado) ||
+        (statusPesquisado !== '' && status !== statusPesquisado) ||
+        (petPesquisado !== '' && !pet.includes(petPesquisado)) ||
+        (proprietarioPesquisado !== '' && !proprietario.includes(proprietarioPesquisado));
+    });
+  }
 });
+  
 
 window.addEventListener('hashchange', navegar);
 window.addEventListener('DOMContentLoaded', navegar);
+document.addEventListener('click', (e) => {
+  if (e.target.id === 'pesquisar-reservas') {
+    console.log('Botão Pesquisar reservas clicado!');
+  }
+});
+document.addEventListener('reset', (e) => {
+  if (e.target.matches('.filtro')) {
+    const linhas = app.querySelectorAll('tbody tr');
+
+    linhas.forEach((linha) => {
+      linha.hidden = false;
+    });
+  }
+});
