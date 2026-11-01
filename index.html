@@ -98,10 +98,13 @@
     <th>Ações</th>
   </tr>
 </thead>
-        <tbody>
-          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td>1</td><td>Max</td><td>Ana Souza</td><td>02/05/2021</td><td>07/05/2021</td><td><span class="tag verde">Reservada</span></td><td>R$ 40,00</td><td><a href="#/reservas/editar">Editar</a> <a href="#/reservas/ver">Visualizar</a></td></tr>
-          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td>2</td><td>Ginger</td><td>Bruno Lima</td><td>02/05/2021</td><td>07/05/2021</td><td><span class="tag azul">Em andamento</span></td><td>R$ 40,00</td><td><a href="#/reservas/editar">Editar</a> <a href="#/reservas/ver">Visualizar</a></td></tr>
-          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td>3</td><td>Max</td><td>Carla Santos</td><td>02/05/2021</td><td>07/05/2021</td><td><span class="tag cinza">Finalizada</span></td><td>R$ 40,00</td><td><a href="#/reservas/editar-finalizada">Editar</a> <a href="#/reservas/ver">Visualizar</a></td></tr>
+        <tbody id="lista-reservas">
+          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td>1</td><td>Max</td><td>Ana Souza</td><td>02/05/2021</td><td>07/05/2021</td><td><span class="tag verde">Reservada</span></td><td>R$ 40,00</td><td> <a href="#/reservas/editar" data-id="1">Editar</a>
+<a href="#/reservas/ver">Visualizar</a></td></tr>
+          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td>2</td><td>Ginger</td><td>Bruno Lima</td><td>02/05/2021</td><td>07/05/2021</td><td><span class="tag azul">Em andamento</span></td><td>R$ 40,00</td><td><a href="#/reservas/editar" data-id="2">Editar</a>
+<a href="#/reservas/ver">Visualizar</a></td></tr>
+          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td>3</td><td>Max</td><td>Carla Santos</td><td>07/05/2021</td><td>12/05/2021</td><td><span class="tag cinza">Finalizada</span></td><td>R$ 40,00</td><td><a href="#/reservas/editar-finalizada" data-id="3">Editar</a>
+<a href="#/reservas/ver">Visualizar</a></td></tr>
         </tbody>
       </table>
     </section>
@@ -112,8 +115,10 @@
       <h1>Fazer reserva</h1>
       <form class="form">
         <label>Pet
-  <input type="text" id="filtro-reserva-pet">
-</label>Período
+  <input type="text" id="reserva-pet">
+</label>
+
+<label>Período
   <span class="duplo">
     <input type="date" id="filtro-reserva-chegada">
     <input type="date" id="filtro-reserva-partida">
@@ -151,15 +156,21 @@
     <section class="painel">
       <h1>Editar reserva</h1>
       <form class="form">
-        <label>Proprietário * <input type="text" value="Géssica Israele"></label>
-        <label>Pet * <input type="text" value="Max"></label>
+        <label>Proprietário * <input type="text" id="reserva-proprietario"></label>
+        <label>Pet * <input type="text" id="reserva-pet"></label>
         <label>Período * <span class="duplo"><input type="date"><input type="date"></span></label>
         <label>Notas <textarea rows="3"></textarea></label>
-        <label>Status * <select><option>Em andamento</option><option>Reservada</option><option>Finalizada</option></select></label>
+        <label>Status * 
+  <select id="reserva-status">
+    <option>Em andamento</option>
+    <option>Reservada</option>
+    <option>Finalizada</option>
+  </select>
+</label>
         <label>Anotações do funcionário <textarea rows="3"></textarea></label>
         <label>Imagens <input type="file" accept="image/*" multiple></label>
         <p class="total">Total das diárias: <strong>R$ 40,00</strong></p>
-        <div class="acoes"><button type="button" class="btn" data-ir="#/reservas">Salvar</button><button type="reset" class="btn sec">Limpar</button></div>
+        <div class="acoes"><button type="button" class="btn" id="salvar-reserva">Salvar</button><button type="reset" class="btn sec">Limpar</button></div>
       </form>
     </section>
   </template>
@@ -168,14 +179,20 @@
     <section class="painel">
       <h1>Editar reserva</h1>
       <form class="form">
-        <label>Proprietário * <input type="text" value="José da Silva"></label>
-        <label>Pet * <input type="text" value="Max"></label>
+        <label>Proprietário * <input type="text" id="reserva-proprietario"></label>
+        <label>Pet * <input type="text" id="reserva-pet"></label>
         <label>Período * <span class="duplo"><input type="date"><input type="date"></span></label>
         <label>Notas <textarea rows="3"></textarea></label>
-        <label>Status * <select><option>Finalizada</option><option>Em andamento</option><option>Reservada</option></select></label>
+        <label>Status * 
+  <select id="reserva-status">
+    <option>Em andamento</option>
+    <option>Reservada</option>
+    <option>Finalizada</option>
+  </select>
+</label>
         <p class="total">Total das diárias: <strong>R$ 40,00</strong></p>
         <div><label class="btn roxo">Adicionar recibo/nota <input type="file" hidden></label> <a href="#/reservas/ver">recibo.pdf</a></div>
-        <div class="acoes"><button type="button" class="btn" data-ir="#/reservas">Salvar</button><button type="reset" class="btn sec">Limpar</button></div>
+        <div class="acoes"><button type="button" class="btn" id="salvar-reserva">Salvar</button><button type="reset" class="btn sec">Limpar</button></div>
       </form>
     </section>
   </template>
@@ -194,7 +211,7 @@
       </form>
       <table>
         <thead><tr><th></th><th>Id</th><th>Nome</th><th>Tipo</th><th>Raça</th><th>Tamanho</th><th>Ações</th></tr></thead>
-        <tbody>
+        <tbody id="lista-reservas">
           <tr><td><input type="checkbox" aria-label="Selecionar"></td><td>1234509876</td><td>Max</td><td>Cachorro</td><td>Pastor Alemão</td><td>Grande</td><td><a href="#/pets/editar">Editar</a> <a href="#/pets/ver">Visualizar</a></td></tr>
           <tr><td><input type="checkbox" aria-label="Selecionar"></td><td>1234509877</td><td>Ginger</td><td>Gato</td><td>Siamês</td><td>Pequeno</td><td><a href="#/pets/editar">Editar</a> <a href="#/pets/ver">Visualizar</a></td></tr>
         </tbody>
@@ -265,9 +282,8 @@
       </form>
       <table>
         <thead><tr><th></th><th>Foto</th><th>E-mail</th><th>Nome</th><th>Função</th><th>Status</th><th>Criado em</th><th>Ações</th></tr></thead>
-        <tbody>
-          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td><span class="avatar"></span></td><td>gessicaisraele@pet.com</td><td>Géssica Israele</td><td>Gerente</td><td><span class="tag verde">Ativo</span></td><td>19/02/2020</td><td><a href="#/usuarios/editar">Editar</a></td></tr>
-          <tr><td><input type="checkbox" aria-label="Selecionar"></td><td><span class="avatar"></span></td><td>maria@pet.com</td><td>Maria da Silva</td><td>Funcionária</td><td><span class="tag vermelho">Inativo</span></td><td>19/02/2020</td><td><a href="#/usuarios/editar">Editar</a></td></tr>
+        <tbody id="lista-usuarios">
+          
         </tbody>
       </table>
     </section>
@@ -281,8 +297,9 @@
         <label>Nome * <input type="text"></label>
         <label>Sobrenome * <input type="text"></label>
         <label>Telefone * <input type="tel"></label>
+        
         <label>Função <select><option>Cliente</option><option>Funcionário</option><option>Gerente</option></select></label>
-        <div class="acoes"><button type="button" class="btn" data-ir="#/usuarios">Salvar</button><button type="reset" class="btn sec">Limpar</button></div>
+        <div class="acoes"><button type="button" class="btn" id="salvar-usuario">Salvar</button><button type="reset" class="btn sec">Limpar</button></div>
       </form>
     </section>
   </template>
@@ -291,12 +308,16 @@
     <section class="painel">
       <h1>Editar perfil</h1>
       <form class="form">
-        <label>E-mail * <input type="email" value="gessicaisraele@pet.com"></label>
-        <label>Nome * <input type="text" value="Géssica"></label>
-        <label>Sobrenome * <input type="text" value="Israele"></label>
+        <label>E-mail * <input type="email" id="usuario-email" value="gessicaisraele@pet.com"></label><label>Nome * <input type="text" id="usuario-nome" value="Géssica"></label><label>Sobrenome * <input type="text" id="usuario-sobrenome" value="Israele"></label>
         <label>Telefone * <input type="tel" value="+55 (73) 99876-6543"></label>
-        <label>Função <select><option>Funcionário</option><option>Cliente</option><option>Gerente</option></select></label>
-        <div class="acoes"><button type="button" class="btn" data-ir="#/usuarios">Salvar</button><button type="reset" class="btn sec">Limpar</button></div>
+        <label>Função
+  <select id="usuario-funcao">
+    <option>Funcionário</option>
+    <option>Cliente</option>
+    <option>Gerente</option>
+  </select>
+</label>
+        <div class="acoes"><button type="button" class="btn" id="salvar-usuario">Salvar</button><button type="reset" class="btn sec">Limpar</button></div>
       </form>
     </section>
   </template>
